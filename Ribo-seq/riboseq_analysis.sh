@@ -1,4 +1,13 @@
-#
+# Ribo-seq analysis
+
+#For the raw reads, cutadpt (version 1.12) was used to trim adapters; fastq_quality_filter (fastx_toolkit-0.0.14) discards the poor-quality reads (>50% bases with a Phred score <20);
+#bowtie (version 1.0.1) (-l 20 -v 0) discard mycoplasma reads	and rRNA Reads. we use the clean reads from the company directly for the following analysis.
+for i in `cat name`;do tophat2 -p 15 -o $i -G ~/genome/TAIR10_GFF3_genes_exons.gtf ~/genome/tair10seq ../clean_data/${i}.fq.gz>>mappinglog 2>&1;done
+for i in `cat name`;do cufflinks -p 15 -G TAIR10_GFF3_genes_exons.gtf -o $i -u --library-type fr-firststrand ../bam/${i}.bam;done
+
+# RNA-seq analysis
+# The raw data were firstly processed through in-house perl scripts to remove reads containing adapter, ploy-N and low quality by the company. Clean reads
+
 
 
 # Disome analysis of ddm1
@@ -14,12 +23,12 @@ perl filter_fq_length.pl RISDR1.fq > RISDR1_40_65.fq
 perl filter_fq_length.pl RISDR2.fq > RISDR2_40_65.fq
 
 cat RISDR1_40_65.fq RISDR2_40_65.fq > ddm1_40_65.fq
-
 tophat -p 8 -o ddm1_40_65 -G ~/genome/TAIR10_GFF3_genes_transposons.gff ~/genome/tair10seq ../raw_data_trimmed/ddm1_40_65.fq
 cufflinks -u -g ~/genome/TAIR10_GFF3_genes_transposons.gff ../2_mapping/ddm1_40_65/accepted_hits.bam
 
 
-# For visulalizing
+# Visulalizing of Riboseq data
+# We 
 bowtie-build ~/genome/TAIR10_cdna.fa tair_trans
 bowtie -p 12 -l 23 tair_trans ../clean_data/RISCR1_clean.fastq.gz -S RISCR1.sam
 bowtie -p 12 -l 23 tair_trans ../clean_data/RISCR2_clean.fastq.gz -S RISCR2.sam
