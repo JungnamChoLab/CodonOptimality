@@ -1,3 +1,2 @@
 
-This folder includes the code and data to generate the figures in the paper entitled: "Translational inhibition and phase separation primes the epigenetic silencing of transposons".
-(https://www.biorxiv.org/content/10.1101/2020.04.08.032953v1.full)
+This folder includes the code and data to generate the figures in the paper entitled: "Ribosome stalling and SGS3 phase separation prime the epigenetic silencing of transposons".(https://www.nature.com/articles/s41477-021-00867-4)
