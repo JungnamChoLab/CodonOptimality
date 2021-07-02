@@ -37,10 +37,10 @@ ggmaplot(res, fdr = 0.05, fc = 4, genenames = NULL,
 sum(res$padj < 0.05, na.rm=TRUE)
 re <- as.data.frame(res)
 re$Significant  <- "No"
-re[is.na(res$padj),]$Significant  <- "Not test"
+re[is.na(re$padj),]$Significant  <- "Not test"
 #re[re$padj < 0.05 &abs(re$log2FoldChange)>=1,]$sign <-"yes"
-re[re$padj <= 0.05 &re$log2FoldChange>=1 &!is.na(res$padj),]$Significant <-"Up"
-re[re$padj <= 0.05 &re$log2FoldChange<=-1&!is.na(res$padj),]$Significant  <-"Down"
+re[re$padj <= 0.05 &re$log2FoldChange>=1 &!is.na(re$padj),]$Significant <-"Up"
+re[re$padj <= 0.05 &re$log2FoldChange<=-1&!is.na(re$padj),]$Significant  <-"Down"
 re$Significant  <- factor(re$Significant,levels = c("Up","Down","No"))
 table(re[,c(7)])
 v <- ggplot(re,aes(log2FoldChange,-log10(padj)))
